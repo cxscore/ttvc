@@ -201,7 +201,9 @@ class VisuallyCompleteCalculator {
     const cancelOnVisibilityChange = (e: Event) => cancel(e, CancellationReason.VISIBILITY_CHANGE);
 
     this.inViewportImageObserver.observe();
-    this.inViewportMutationObserver.observe(document.documentElement);
+    if (document.documentElement) {
+      this.inViewportMutationObserver.observe(document.documentElement);
+    }
     window.addEventListener('pagehide', cancelOnNavigation);
     window.addEventListener('visibilitychange', cancelOnVisibilityChange);
     // attach user interaction listeners next tick (we don't want to pick up the SPA navigation click)
